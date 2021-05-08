@@ -28,11 +28,12 @@ exports.getAnUser = async (req, res) => {
 // create a new menu item and include in the menu list
 exports.createAnUser = async (req, res) => {
 	const user = await User.build({
-		first_name: req.body.firstName,
-		last_name: req.body.lastName,
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
 		email: req.body.email,
 		telephone: req.body.telephone,
 		address: req.body.address,
+		admin: req.body.admin,
 		password: req.body.password,
 	});
 
@@ -48,7 +49,7 @@ exports.createAnUser = async (req, res) => {
 exports.updateAnUser = async (req, res) => {
 	const userToUpdate = req.params.id;
 	const newUser = await db.query(
-		`UPDATE users SET first_name = 'Carlos' WHERE id = ${userToUpdate}`,
+		`UPDATE users SET first_name = 'Carlos' WHERE id = '${userToUpdate}'`,
 		{ type: QueryTypes.UPDATE }
 	);
 
@@ -62,7 +63,7 @@ exports.updateAnUser = async (req, res) => {
 exports.deleteAnUser = async (req, res) => {
 	const userToDelete = req.params.id;
 	const deletedUser = await db.query(
-		`	DELETE FROM users WHERE id = ${userToDelete}`,
+		`DELETE FROM users WHERE id = '${userToDelete}'`,
 		{ type: QueryTypes.DELETE }
 	);
 

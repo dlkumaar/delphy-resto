@@ -1,59 +1,38 @@
-const { pool } = require('./../db/db');
+const { QueryTypes } = require('sequelize');
+const Menu = require('./../model/menuModel');
+const Dish = require('./../model/dishModel');
+const db = require('./../db/db');
 
 // get entire menu list
-exports.getAllMenuItems = (req, res) => {
-	pool.query('SELECT * FROM menu', (error, results) => {
-		if (error) {
-			throw error;
-		}
-		res.status(200).json(results.rows);
-	});
-};
+exports.getAllMenuItems = (req, res) => {};
 
 // get a single menu item
 exports.getMenuItem = (req, res) => {
 	const id = req.params.id;
-
-	const query = {
-		// give the query a unique name
-		name: 'fetch-a-menu-item',
-		text: 'SELECT * FROM menu WHERE id = $1',
-		values: [id],
-	};
-
-	pool
-		.query(query)
-		.then((results) => res.status(200).json(results.rows))
-		.catch((err) => res.status(401).json(err.stack));
 };
 
 // create a new menu item and include in the menu list
-exports.createAMenuItem = (req, res) => {
-	const newMenuItem = [
-		req.body.id,
-		req.body.name,
-		req.body.description,
-		req.body.hot_and_spicy,
-	];
-	const query = {
-		text:
-			'INSERT INTO dish(id, name, description, hot_and_spicy) VALUES($1, $2, $3, $4)',
-		values: newMenuItem,
-	};
+exports.createAMenuItem = async (req, res) => {
+	const menu = await Menu.create({
+		dish_type: req.body.dish_type,
+	});
 
-	pool
-		.query(query)
-		.then((results) =>
-			res.status(201).json({
-				data: results,
-			})
-		)
-		.catch((e) => res.status(401).json(e));
+	const dish = await Dish.create({
+		name: req.body.name,
+		description: req.body.description,
+		price: req.body.price,
+		image: req.body.image,
+		stock: req.body.stock,
+		spicy: req.body.spicy,
+	});
 
-	// const data = req.body;
-	// res.status(201).json({
-	// 	data,
-	// });
+	// const newMenu = await menu.save();
+
+	res.status(201).json({
+		menu,
+		dish,
+		message: 'Menu created',
+	});
 };
 
 // update a menu item in the list
