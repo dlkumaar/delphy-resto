@@ -8,6 +8,7 @@ function MenuItem({
 	addItemToCart,
 	removeFromCart,
 	removeItemFromCart,
+	cartItem,
 }) {
 	const dispatch = useDispatch();
 
@@ -32,8 +33,10 @@ function MenuItem({
 			<div className='w-10/12 flex'>
 				<img src={strMealThumb} alt={strMeal} className='w-20 mr-3' />
 				<div>
-					<h2 className='text-xl font-normal'>{strMeal}</h2>
-					<h3 className=' text-gray-600'>$300</h3>
+					<h2 className={`text-xl font-normal ${cartItem && 'text-gray-50'} `}>
+						{strMeal}
+					</h2>
+					<h3 className={`${cartItem && 'text-gray-50'} `}>$300</h3>
 				</div>
 			</div>
 
@@ -41,7 +44,7 @@ function MenuItem({
 				onClick={
 					removeFromCart ? handleRemoveItemFromCart : handleAddItemToCart
 				}
-				className={` text-white cursor-pointer 
+				className={` text-white cursor-pointer
 				${
 					removeFromCart
 						? 'border border-white text-2xl rounded-full pb-1 pt-0 pl-3 pr-3 hover:bg-yellow-500 hover:border-yellow-500'

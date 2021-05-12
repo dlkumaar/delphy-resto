@@ -10,10 +10,12 @@ function HomePage() {
 
 	const addItemToCart = () => {
 		setCartItemCount(cartItemCount + 1);
+		return cartItemCount;
 	};
 
 	const removeItemFromCart = () => {
 		if (cartItemCount > 0) setCartItemCount(cartItemCount - 1);
+		return cartItemCount;
 	};
 
 	return (

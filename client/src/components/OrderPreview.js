@@ -1,7 +1,12 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 
-function OrderPreview({ cartItemCount, cartItems, removeItemFromCart }) {
+function OrderPreview({
+	cartItemCount,
+	cartItems,
+	removeItemFromCart,
+	checkoutPageItem,
+}) {
 	return (
 		<div>
 			{cartItemCount > 0 ? (
@@ -12,6 +17,8 @@ function OrderPreview({ cartItemCount, cartItems, removeItemFromCart }) {
 						strMealThumb={mealImage}
 						removeFromCart
 						removeItemFromCart={removeItemFromCart}
+						checkoutPageItem={checkoutPageItem}
+						cartItem
 					/>
 				))
 			) : (

@@ -7,8 +7,8 @@ CREATE TABLE users(
     address                 VARCHAR(120) NOT NULL,
     password                VARCHAR(10) NOT NULL,
     admin                   BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+    createdAt               TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt               TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
 )
 
 
@@ -31,7 +31,7 @@ CREATE TABLE dish (
 
 
 CREATE TABLE menu_dishes(
-  menu_id             CHAR(10) REFERENCES menu(id),
+  menu_id                   CHAR(10) REFERENCES menu(id),
   dish_id                   INTEGER REFERENCES dish(id)
   PRIMARY KEY (menu_id, dish_id)
 );

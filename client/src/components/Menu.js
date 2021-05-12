@@ -5,7 +5,7 @@ import axios from 'axios';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import MenuItem from './MenuItem';
 
-function Menu({ addItemToCart, removeItemFromCart }) {
+function Menu({ addItemToCart }) {
 	const [serachBy, setSearchBy] = useState('Miscellaneous');
 	const [dishes, setDishes] = useState('');
 
@@ -17,7 +17,7 @@ function Menu({ addItemToCart, removeItemFromCart }) {
 			.then((data) => setDishes(data.data.meals));
 		// .then(console.log(dishes));
 		return source.cancel();
-	}, [dishes, serachBy]);
+	}, [serachBy]);
 
 	const handleMenuChange = (e) => {
 		setSearchBy(e.target.value);
@@ -35,7 +35,7 @@ function Menu({ addItemToCart, removeItemFromCart }) {
 						value={serachBy}
 						onChange={handleMenuChange}
 						className='w-40 border border-gray-400 rounded p-2'>
-						<option value='Miscellaneous'>Miscellaneous</option>
+						<option value='Miscellaneous'>Today's Special</option>
 						<option value='Beef'>Beef</option>
 						<option value='Breakfast'>Breakfast</option>
 						<option value='Chicken'>Chicken</option>
