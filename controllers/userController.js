@@ -27,7 +27,7 @@ exports.getAnUser = async (req, res) => {
 
 // create a new menu item and include in the menu list
 exports.createAnUser = async (req, res) => {
-	const user = await User.build({
+	const user = await User.create({
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
 		email: req.body.email,
@@ -36,8 +36,6 @@ exports.createAnUser = async (req, res) => {
 		admin: req.body.admin,
 		password: req.body.password,
 	});
-
-	const newUser = await user.save();
 
 	res.status(201).json({
 		user: newUser,

@@ -1,9 +1,9 @@
 const { DataTypes, Sequelize } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const db = require('../db/db');
 
 const User = db.define('User', {
-	// model attributes - sequelize adds ID as primary key by default
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,
@@ -31,7 +31,7 @@ const User = db.define('User', {
 		allowNull: false,
 	},
 	password: {
-		type: DataTypes.STRING(10),
+		type: DataTypes.STRING(255),
 		allowNull: false,
 	},
 	admin: {
@@ -41,13 +41,14 @@ const User = db.define('User', {
 
 module.exports = User;
 
-// Sample data
-// {
-// 	"first_name": "Rahul",
-// 	"last_name": "Kumar",
-// 	"email": "test@gmail.com",
-// 	"address": "salguero 2330",
-// 	"password": "123344",
-// 	"telephone": "9093844",
-// 	"admin": "false",
-//  }
+// encrypt the password befoe save
+User.beforeCreate(async function (user) {
+	user.password = await bcrypt.hash(user.password, 10);
+});
+
+// check for correct password - returns true if correct
+User.prototype.correctPassword = async function (password, hashedPassword) {
+	return await bcrypt.compare(password, hashedPassword);
+};
+
+module.exports = User;

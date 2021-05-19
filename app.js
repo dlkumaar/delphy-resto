@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
 
 // // error handlers
 // const AppError = require('./utils/appError');
@@ -18,11 +21,31 @@ if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
 
-// body parser
-app.use(express.json());
-
 // cors
 app.use(cors());
+
+// Serving static files
+app.use('/', express.static('build'));
+
+// hhtp headers
+app.use(
+	helmet.contentSecurityPolicy({
+		useDefaults: true,
+		directives: {
+			'img-src': '*',
+		},
+	})
+);
+
+// body parser
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+// cookie parser
+app.use(cookieParser());
+
+// compress response body
+app.use(compression());
 
 // mounting the routes
 app.use('/api/v1/menu', menuRoutes);

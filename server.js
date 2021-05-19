@@ -6,7 +6,7 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-	`Server listening at PORT: ${PORT}`;
+	console.log(`Server listening at PORT: ${PORT}`);
 });
 
 // module.exports = { pool };

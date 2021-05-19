@@ -1,22 +1,31 @@
+const Order = require('./../model/orderModel');
+
 // get entire order list
-exports.getAllOrders = (req, res) => {
+exports.getAllOrders = async (req, res) => {
+	const orders = await Order.findAll();
+
 	res.status(200).json({
-		data: [1, 2, 3],
+		data: orders,
 	});
 };
 
 // get a single order item
-exports.getAnOrder = (req, res) => {
+exports.getAnOrder = async (req, res) => {
 	res.status(200).json({
 		message: 'Not defined yet',
 	});
 };
 
 // create a new order item and include in the order list
-exports.createAnOrder = (req, res) => {
-	const data = req.body;
+exports.createAnOrder = async (req, res) => {
+	const order = await Order.create({
+		total_price: +req.body.total_price,
+		user_id: req.body.user_id,
+		order_items: req.body.order_items,
+	});
+
 	res.status(201).json({
-		data,
+		data: order,
 	});
 };
 
