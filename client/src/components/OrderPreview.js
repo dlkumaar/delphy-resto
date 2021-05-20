@@ -4,22 +4,23 @@ import MenuItem from './MenuItem';
 function OrderPreview({
 	cartItemCount,
 	cartItems,
-	removeItemFromCart,
+
 	checkoutPageItem,
 }) {
 	return (
 		<div>
 			{cartItemCount > 0 ? (
-				cartItems.map(({ mealName, mealImage }) => (
-					<MenuItem
-						key={mealName}
-						strMeal={mealName}
-						strMealThumb={mealImage}
-						removeFromCart
-						removeItemFromCart={removeItemFromCart}
-						checkoutPageItem={checkoutPageItem}
-						cartItem
-					/>
+				cartItems.map(({ mealName, mealImage, mealPrice }) => (
+					<div key={mealName} className='relative'>
+						<MenuItem
+							strMeal={mealName}
+							strMealThumb={mealImage}
+							mealPrice={mealPrice}
+							removeFromCart
+							checkoutPageItem={checkoutPageItem}
+							cartItem
+						/>
+					</div>
 				))
 			) : (
 				<div className='flex flex-col w-full items-center py-12 italic text-lg text-yellow-500'>

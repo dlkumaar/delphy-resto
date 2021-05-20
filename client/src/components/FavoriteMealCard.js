@@ -2,16 +2,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../redux/features/cartItemsSlice';
 
-function FavoriteMealCard({ strMeal, strMealThumb, addItemToCart }) {
+function FavoriteMealCard({ strMeal, strMealThumb, price }) {
 	const dispatch = useDispatch();
 
 	const handleClick = () => {
-		addItemToCart();
-
 		dispatch(
 			addItem({
 				mealName: strMeal,
 				mealImage: strMealThumb,
+				mealPrice: price,
 			})
 		);
 	};
@@ -28,7 +27,7 @@ function FavoriteMealCard({ strMeal, strMealThumb, addItemToCart }) {
 				</div>
 			</div>
 			<div className='text-base border border-gray-300 w-72 p-2 pl-3 pr-3 flex justify-between rounded'>
-				<h3>$300</h3>
+				<h3>${price}</h3>
 				<button
 					onClick={handleClick}
 					className='text-base text-yellow-500 font-medium cursor-pointer'>

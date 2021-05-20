@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import Login from './components/Login';
 import Register from './components/Register';
 import CheckoutPage from './pages/CheckoutPage';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
 	const userState = useSelector(user);
@@ -29,6 +30,8 @@ function App() {
 			<Route path='/register' exact>
 				<Register />
 			</Route>
+
+			<Route path='/payment' component={PaymentPage} />
 		</div>
 	);
 }

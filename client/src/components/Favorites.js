@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import dishPrice from '../utils/dishPriceGenerator';
 import FavoriteMealCard from './FavoriteMealCard';
 
-function Favorites({ addItemToCart }) {
+function Favorites() {
 	const [state, setState] = useState([]);
 
 	useEffect(() => {
 		const source = axios.CancelToken.source();
 		axios
 			.get('https://www.themealdb.com/api/json/v1/1/search.php?f=a')
-			.then((data) => setState(data.data.meals));
+
+			.then((response) =>
+				response.data.meals.map((e) => {
+					return {
+						...e,
+						price: dishPrice(),
+					};
+				})
+			)
+
+			.then((data) => setState(data));
 
 		return source.cancel();
 	}, []);
@@ -24,11 +35,7 @@ function Favorites({ addItemToCart }) {
 			<div className='flex overflow-x-scroll overflow-y-hidden'>
 				{state[0] &&
 					state.map(({ idMeal, ...otherMealProps }) => (
-						<FavoriteMealCard
-							key={idMeal}
-							{...otherMealProps}
-							addItemToCart={addItemToCart}
-						/>
+						<FavoriteMealCard key={idMeal} {...otherMealProps} />
 					))}
 			</div>
 		</div>

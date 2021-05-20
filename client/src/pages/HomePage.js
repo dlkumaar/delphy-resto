@@ -1,40 +1,28 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Cart from '../components/Cart';
 import Favorites from '../components/Favorites';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
+import { selectItem } from '../redux/features/cartItemsSlice';
 
 function HomePage() {
-	const [cartItemCount, setCartItemCount] = useState(0);
+	const cart = useSelector(selectItem);
+
 	const [showCart, setShowCart] = useState(false);
-
-	const addItemToCart = () => {
-		setCartItemCount(cartItemCount + 1);
-		return cartItemCount;
-	};
-
-	const removeItemFromCart = () => {
-		if (cartItemCount > 0) setCartItemCount(cartItemCount - 1);
-		return cartItemCount;
-	};
 
 	return (
 		<>
 			<Header
-				cartItemCount={cartItemCount}
+				cartItemCount={cart.length}
 				showCart={showCart}
 				setShowCart={setShowCart}
 			/>
 
-			{showCart && (
-				<Cart
-					cartItemCount={cartItemCount}
-					removeItemFromCart={removeItemFromCart}
-				/>
-			)}
+			{showCart && <Cart cartItemCount={cart.length} />}
 
-			<Favorites addItemToCart={addItemToCart} />
-			<Menu addItemToCart={addItemToCart} />
+			<Favorites />
+			<Menu />
 		</>
 	);
 }
