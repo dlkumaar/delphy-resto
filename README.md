@@ -1,6 +1,11 @@
+[LIVE DEMO](https://delpy-resto.herokuapp.com/)
+
+user: `test@gmail.com`  
+pass: `test123`
+
 # Delphy Restó
 
-Online food order app! The app is under development and very soon you can see the live version of the app over here.
+Online food order app! The app is under development.
 
 ## Tools used.
 
@@ -8,6 +13,7 @@ Front-end:
 
 - React
 - Redux
+- React Router
 - Tailwind CSS
 - Icons from [HeroIcons](https://heroicons.com/)
 
@@ -15,7 +21,7 @@ Back-end:
 
 - Node.js
 - Express
-- MySQL
+- PostgreSQL
 - Sequellize
 
 ## Available Scripts
