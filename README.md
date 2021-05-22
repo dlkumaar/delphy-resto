@@ -1,11 +1,11 @@
+# Delphy Restó
+
+Online food order app! The app is under development.
+
 [LIVE DEMO](https://delpy-resto.herokuapp.com/)
 
 user: `test@gmail.com`  
 pass: `test123`
-
-# Delphy Restó
-
-Online food order app! The app is under development.
 
 ## Tools used.
 
